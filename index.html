@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html ng-app="base64Encoder">
+<head>
+	<title>Javascript Base64 Encoder</title>
+	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="app.js"></script>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="app.css">
+</head>
+<body ng-controller="EncoderCtrl">
+	<h2 class="text-center">Javascript Base64 Encoder</h2>
+	<hr>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="alert alert-warning text-center" role="alert" ng-show="!fileApiSupported">
+					<strong>Warning!</strong> File API is not fully supported by your browser. this tool likely won't work for you
+				</div>
+				<div class="alert alert-info alert-dismissible" role="alert" ng-show="fileApiSupported">
+					<button type="button" class="close" data-dismiss="alert"><span>&times;</span><span class="sr-only">Close</span></button>
+					<ul>
+						<li>
+							Drop a file into the box below to get its <a href="http://en.wikipedia.org/wiki/Base64" target="_blank">Base64-encoded <i class="fa fa-external-link"></i></a> content. You will also see it embedded directly into the document using <a href="http://en.wikipedia.org/wiki/Data_URI_scheme#HTML" target="_blank">data URIs <i class="fa fa-external-link"></i></a> if the file is a supported image, video, or audio.
+						</li>
+						<li>
+							<strong>Warning!</strong> files larger than a few megabytes could make the page very unresponsive.
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<drop-zone callback="processFile(file)"></drop-zone>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h3>Base64 String
+					<button type="button" class="btn btn-default pull-right" ng-class="{disabled: base64 === ''}" data-toggle="tooltip" data-placement="left" title="Copy text to clipboard" data-clipboard-target="input-text" clipboard-copy>
+						<i class="fa fa-clipboard"></i>
+					</button>
+				</h3>
+				<textarea id="input-text">{{base64}}</textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div id="data-uri">
+					<h3>Embedded Multimedia
+						<button type="button" class="btn btn-default pull-right" ng-class="{disabled: !multimedia}" data-toggle="tooltip" data-placement="left" title="Copy HTML to clipboard" data-clipboard-target="media-container" clipboard-copy>
+							<i class="fa fa-clipboard"></i>
+						</button>
+					</h3>
+					<div id="media-container"> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+		<div class="container">
+			Create by <a href="http://github.com/mhahmadi" target="_blank">Moe Ahmadi</a>
+		</div>
+	</footer>
+	<div id="clipboard-copy-alert" class="alert alert-success text-center faded" role="alert">
+		copied to clipboard!
+	</div>
+</body>
+</html>

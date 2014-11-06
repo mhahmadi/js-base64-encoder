@@ -1,0 +1,10 @@
+<div id="drop-zone">
+	<i class="fa fa-file" ng-show="!file.name"></i>
+	<div id="file-label" ng-show="file.name">
+		<button type="button" class="close" ng-click="clear();"><span class="glyphicon glyphicon-remove"></span></button>
+		{{file.name}}
+	</div>
+</div>
+<div class="progress" ng-show="progress">
+	<div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" ng-style="{width: progress+'%'}">{{progress}}%</div>
+</div>
